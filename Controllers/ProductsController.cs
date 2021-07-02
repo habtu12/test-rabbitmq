@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Test.RabbitMQ.API.Models;
+using Test.RabbitMQ.API.Query;
 using Test.RabbitMQ.API.Services;
 
 namespace Test.RabbitMQ.API.Controllers
@@ -14,10 +13,12 @@ namespace Test.RabbitMQ.API.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IProductQuery _productQuery;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, IProductQuery productQuery)
         {
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _productQuery = productQuery ?? throw new ArgumentNullException(nameof(productQuery));
         }
 
         //[HttpGet]
@@ -37,14 +38,16 @@ namespace Test.RabbitMQ.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Products>> GetProducts(int id)
         {
-            var products = await _productService.GetAsync(id);
+            var products = await _productQuery.GetAllAsync();
+            //var products = await _productQuery.GetByIdAsync(id);
+            //var products = await _productService.GetAsync(id);
 
             if (products == null)
             {
                 return NotFound();
             }
 
-            return products;
+            return new Products();
         }
 
         // PUT: api/Products/5
@@ -58,7 +61,7 @@ namespace Test.RabbitMQ.API.Controllers
                 return BadRequest();
             }
 
-            await _productService.UpdateAsync(id,products);          
+            await _productService.UpdateAsync(id, products);
 
             return Ok(products);
         }

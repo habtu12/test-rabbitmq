@@ -8,8 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="Dapper" Version="2.0.90" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.7">
       <PrivateAssets>all</PrivateAssets>
@@ -24,6 +22,10 @@
     <PackageReference Include="Perago.SharedKernel.BroadcastRabbitMQ" Version="1.0.20210518.8" />
     <PackageReference Include="Perago.SharedKernel.RabbitMQ" Version="1.0.20210518.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\NewFolder\" />
   </ItemGroup>
 
 </Project>

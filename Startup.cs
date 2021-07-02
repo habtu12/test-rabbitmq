@@ -14,6 +14,7 @@ using RabbitMQ.Client;
 using System;
 using Test.RabbitMQ.API.IntegrationEvents;
 using Test.RabbitMQ.API.Models;
+using Test.RabbitMQ.API.Query;
 using Test.RabbitMQ.API.Services;
 
 namespace Test.RabbitMQ.API
@@ -30,14 +31,16 @@ namespace Test.RabbitMQ.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddEntityFrameworkNpgsql()
-                   .AddDbContext<InventoryContext>(options => options.UseNpgsql(Configuration.GetConnectionString("InventoryDatabase")));
+            services.AddDbContext<InventoryContext>(options => options.UseNpgsql(Configuration.GetConnectionString("InventoryDatabase")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Test RabbitMQ", Version = "v1" });
             });
             services.AddTransient<IProductService, ProductService>();
+
+            services.AddTransient<IProductQuery>(c => new ProductQuery(Configuration.GetConnectionString("InventoryDatabase")));
+
             services.AddEventBus(Configuration);
             services.AddBroadcastEventBus(Configuration);
         }

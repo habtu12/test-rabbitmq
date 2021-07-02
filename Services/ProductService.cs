@@ -15,6 +15,7 @@ namespace Test.RabbitMQ.API.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+
         public async Task<Products> AddAsync(Products products)
         {
             _context.Products.Add(products);
