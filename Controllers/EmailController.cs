@@ -34,11 +34,11 @@ namespace Test.RabbitMQ.API.Controllers
             bodyBuilder.TextBody = "Hello World!";
 
             //bodyBuilder.Attachments.Add(env.WebRootPath + "\\file.png");
-            //message.Body = bodyBuilder.ToMessageBody();
+            message.Body = bodyBuilder.ToMessageBody();
 
             SmtpClient client = new SmtpClient();
             await client.ConnectAsync("indigo.cloudns.io", 465, true);
-            await client.AuthenticateAsync("indigo.cloudns.io", "{Pass123!!}");
+            await client.AuthenticateAsync("egpadmin@ppa.gov.et", "{Pass123!!}");
 
             await client.SendAsync(message);
             await client.DisconnectAsync(true);
