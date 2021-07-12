@@ -55,6 +55,8 @@ namespace Test.RabbitMQ.API.Query
                 {
                     var data = await dbConnection.QueryAsync(dataQuery);
 
+                    //:TODO
+                    //JObject, JArray mapping
                     return MyClass.ConvertDynamic<Products>(data);
                 }
                 catch (Exception ex)

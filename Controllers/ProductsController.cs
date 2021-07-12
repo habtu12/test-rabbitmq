@@ -31,7 +31,8 @@ namespace Test.RabbitMQ.API.Controllers
         public async Task<ActionResult<IEnumerable<Products>>> GetProducts(bool? inStock, int? skip, int? take)
         {
 
-            return Ok(await _productService.GetAllAsync(inStock, skip, take));
+            return Ok(new List<Products>());
+            //return Ok(await _productService.GetAllAsync(inStock, skip, take));
         }
 
         // GET: api/Products/5
